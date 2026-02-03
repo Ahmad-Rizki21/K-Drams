@@ -8,16 +8,18 @@ export async function GET() {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 }
+      cache: "no-store",
     });
 
     if (!res.ok) {
-        return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
+      console.error("[FlickReels ForYou] Upstream error:", res.status, res.statusText);
+      return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
     }
 
     const data = await safeJson(res);
     return encryptedResponse(data);
   } catch (error) {
+    console.error("[FlickReels ForYou] Error:", error);
     return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
   }
 }

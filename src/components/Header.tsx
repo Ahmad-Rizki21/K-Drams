@@ -4,14 +4,15 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, X, Play } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useSearchDramas } from "@/hooks/useDramas";
+import { useSearchAnime } from "@/hooks/useAnime";
 import { useReelShortSearch } from "@/hooks/useReelShort";
 import { useNetShortSearch } from "@/hooks/useNetShort";
 import { useMeloloSearch } from "@/hooks/useMelolo";
 import { useFlickReelsSearch } from "@/hooks/useFlickReels";
 import { useFreeReelsSearch } from "@/hooks/useFreeReels";
-import { usePlatform } from "@/hooks/usePlatform";
+import { usePlatform } from "@/hooks/usePlatformStore";
 import { useDebounce } from "@/hooks/useDebounce";
 import { usePathname } from "next/navigation";
 
@@ -23,11 +24,14 @@ export function Header() {
   const normalizedQuery = debouncedQuery.trim();
 
   // Platform context
-  const { isDramaBox, isReelShort, isNetShort, isMelolo, isFlickReels, isFreeReels, platformInfo } = usePlatform();
+  const { isDramaBox, isAnime, isReelShort, isNetShort, isMelolo, isFlickReels, isFreeReels, platformInfo } = usePlatform();
 
   // Search based on platform
   const { data: dramaBoxResults, isLoading: isSearchingDramaBox } = useSearchDramas(
     isDramaBox ? normalizedQuery : ""
+  );
+  const { data: animeResults, isLoading: isSearchingAnime } = useSearchAnime(
+    isAnime ? normalizedQuery : ""
   );
   const { data: reelShortResults, isLoading: isSearchingReelShort } = useReelShortSearch(
     isReelShort ? normalizedQuery : ""
@@ -45,31 +49,35 @@ export function Header() {
     isFreeReels ? normalizedQuery : ""
   );
 
-  const isSearching = isDramaBox 
-    ? isSearchingDramaBox 
-    : isReelShort 
-      ? isSearchingReelShort 
-      : isNetShort 
-        ? isSearchingNetShort
-        : isMelolo
-          ? isSearchingMelolo
-          : isFlickReels
-            ? isSearchingFlickReels
-            : isSearchingFreeReels;
+  const isSearching = isDramaBox
+    ? isSearchingDramaBox
+    : isAnime
+      ? isSearchingAnime
+      : isReelShort
+        ? isSearchingReelShort
+        : isNetShort
+          ? isSearchingNetShort
+          : isMelolo
+            ? isSearchingMelolo
+            : isFlickReels
+              ? isSearchingFlickReels
+              : isSearchingFreeReels;
 
   // Search results processing
-  const searchResults = isDramaBox 
-    ? dramaBoxResults 
-    : isReelShort 
-      ? reelShortResults?.data 
-      : isNetShort
-        ? netShortResults?.data
-        : isMelolo
-          ? meloloResults?.data?.search_data?.flatMap((item: any) => item.books || [])
-              .filter((book: any) => book.thumb_url && book.thumb_url !== "") || []
-          : isFlickReels
-            ? flickReelsResults?.data
-            : freeReelsResults;
+  const searchResults = isDramaBox
+    ? dramaBoxResults
+    : isAnime
+      ? animeResults
+      : isReelShort
+        ? reelShortResults?.data
+        : isNetShort
+          ? netShortResults?.data
+          : isMelolo
+            ? meloloResults?.data?.search_data?.flatMap((item: any) => item.books || [])
+                .filter((book: any) => book.thumb_url && book.thumb_url !== "") || []
+            : isFlickReels
+              ? flickReelsResults?.data
+              : freeReelsResults;
 
   const handleSearchClose = () => {
     setSearchOpen(false);
@@ -87,11 +95,9 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <Play className="w-5 h-5 text-white fill-white" />
-            </div>
+            <Image src="/icon_darkmode.ico" alt="Jelantik's Drama" width={40} height={40} className="rounded-xl group-hover:scale-110 transition-transform duration-300" />
             <span className="font-display font-bold text-xl gradient-text">
-              SekaiDrama
+              Jelantik's Drama
             </span>
           </Link>
 
@@ -184,6 +190,40 @@ export function Header() {
                                 </span>
                               ))}
                             </div>
+                          )}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {/* Anime Results */}
+                {isAnime && searchResults && searchResults.length > 0 && (
+                  <div className="grid gap-3">
+                    {searchResults.map((anime: any, index: number) => (
+                      <Link
+                        key={anime.id}
+                        href={`/detail/anime/${anime.url}`}
+                        onClick={handleSearchClose}
+                        className="flex gap-4 p-4 rounded-2xl bg-card hover:bg-muted transition-all text-left animate-fade-up overflow-hidden"
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <img
+                          src={anime.cover}
+                          alt={anime.judul}
+                          className="w-16 h-24 object-cover rounded-xl flex-shrink-0"
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-display font-semibold text-foreground truncate">{anime.judul}</h3>
+                          {anime.lastch && (
+                            <p className="text-sm text-muted-foreground mt-1">{anime.lastch}</p>
+                          )}
+                          {anime.lastup && (
+                            <span className="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-medium bg-green-500/20 text-green-500">
+                              {anime.lastup}
+                            </span>
                           )}
                         </div>
                       </Link>

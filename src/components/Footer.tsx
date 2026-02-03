@@ -31,7 +31,7 @@ export function Footer() {
               </li>
           </ul> */}
 
-          <p className="text-sm text-muted-foreground text-center">
+          {/* <p className="text-sm text-muted-foreground text-center">
             API yang digunakan:{" "}
             <a 
                   href="https://api.sansekai.my.id" 
@@ -42,11 +42,11 @@ export function Footer() {
                   SΛNSΞKΛI API
                   <ExternalLink className="w-3 h-3" />
                 </a>
-          </p>
+          </p> */}
 
           {/* Copyright */}
           <p className="text-xs text-muted-foreground/80 text-center font-medium">
-            © {new Date().getFullYear()} Made with ❤️ by Yusril
+            © {new Date().getFullYear()} Made with  Jelantik's
           </p>
         </div>
       </div>

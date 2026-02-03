@@ -1,16 +1,26 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ChevronDown } from "lucide-react";
-import { usePlatform, type PlatformInfo } from "@/hooks/usePlatform";
+import { usePlatform } from "@/hooks/usePlatformStore";
+import type { PlatformInfo } from "@/hooks/platform-types";
 import { useState, useRef, useEffect } from "react";
 
 export function PlatformSelector() {
+  const router = useRouter();
   const { currentPlatform, setPlatform, platforms, getPlatformInfo } = usePlatform();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  
+
   const currentPlatformInfo = getPlatformInfo(currentPlatform);
+
+  // Handle platform change with URL navigation
+  const handlePlatformChange = (platformId: string) => {
+    setPlatform(platformId as any);
+    router.push(`/${platformId}`);
+    setIsOpen(false);
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -54,13 +64,10 @@ export function PlatformSelector() {
             {platforms.map((platform) => (
               <button
                 key={platform.id}
-                onClick={() => {
-                  setPlatform(platform.id);
-                  setIsOpen(false);
-                }}
+                onClick={() => handlePlatformChange(platform.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${
-                  currentPlatform === platform.id 
-                    ? 'bg-primary/10 text-primary' 
+                  currentPlatform === platform.id
+                    ? 'bg-primary/10 text-primary'
                     : 'hover:bg-muted/50'
                 }`}
               >
@@ -90,7 +97,7 @@ export function PlatformSelector() {
             key={platform.id}
             platform={platform}
             isActive={currentPlatform === platform.id}
-            onClick={() => setPlatform(platform.id)}
+            onClick={() => handlePlatformChange(platform.id)}
           />
         ))}
       </div>

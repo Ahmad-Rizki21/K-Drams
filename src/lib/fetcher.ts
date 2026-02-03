@@ -22,18 +22,18 @@ export async function fetchJson<T>(url: string, options?: RequestInit): Promise<
     } catch {
       errorData = { message: response.statusText };
     }
-    
+
     // Throw error with status to be caught by React Query
     throw new ApiError(
-        errorData?.error || errorData?.message || "An error occurred", 
-        response.status, 
+        errorData?.error || errorData?.message || "An error occurred",
+        response.status,
         errorData
     );
   }
 
   const json = await response.json();
   if (json.data && typeof json.data === "string") {
-    return decryptData(json.data);
+    return decryptData<T>(json.data);
   }
-  return json;
+  return json as T;
 }

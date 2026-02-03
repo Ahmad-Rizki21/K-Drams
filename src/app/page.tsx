@@ -1,12 +1,6 @@
-import { Suspense } from "react";
-import HomeContent from "./home-content";
-
-export const dynamic = "force-dynamic";
+import { redirect } from "next/navigation";
 
 export default function HomePage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen pt-24 flex items-center justify-center"><div className="w-10 h-10 border-3 border-primary border-t-transparent rounded-full animate-spin" /></div>}>
-      <HomeContent />
-    </Suspense>
-  );
+  // Redirect to default platform
+  redirect("/dramabox");
 }
