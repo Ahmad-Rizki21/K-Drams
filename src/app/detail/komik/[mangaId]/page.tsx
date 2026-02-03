@@ -72,7 +72,7 @@ export default function KomikDetailPage() {
 
             <div className="space-y-6">
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold font-display gradient-text mb-4">
+                <h1 className="text-3xl md:text-4xl font-bold font-display text-foreground mb-4">
                   {komik.title}
                 </h1>
                 {komik.alternative_title && komik.alternative_title !== komik.title && (
@@ -170,7 +170,7 @@ export default function KomikDetailPage() {
                 <Link
                   href={`/read/komik/${komik.manga_id}?chapter=${komik.chapters[komik.chapters.length - 1].chapter_id}`}
                   className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-primary-foreground transition-all hover:scale-105 shadow-lg"
-                  style={{ background: "var(--gradient-primary)" }}
+                  className="bg-primary"
                 >
                   <Book className="w-5 h-5 fill-current" />
                   Mulai Baca

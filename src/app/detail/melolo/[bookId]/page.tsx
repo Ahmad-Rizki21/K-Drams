@@ -85,7 +85,7 @@ export default function MeloloDetailPage() {
             {/* Info */}
             <div className="space-y-6">
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold font-display gradient-text mb-4">
+                <h1 className="text-3xl md:text-4xl font-bold font-display text-foreground mb-4">
                   {drama.series_title}
                 </h1>
                 
@@ -110,7 +110,7 @@ export default function MeloloDetailPage() {
                 <Link
                   href={`/watch/melolo/${params.bookId}/${firstEpisodeId}`}
                   className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-primary-foreground transition-all hover:scale-105 shadow-lg"
-                  style={{ background: "var(--gradient-primary)" }}
+                  className="bg-primary"
                 >
                   <Play className="w-5 h-5 fill-current" />
                   Mulai Menonton

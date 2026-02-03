@@ -95,9 +95,9 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <Image src="/icon_darkmode.ico" alt="Jelantik's Drama" width={40} height={40} className="rounded-xl group-hover:scale-110 transition-transform duration-300" />
-            <span className="font-display font-bold text-xl gradient-text">
-              Jelantik's Drama
+            <Image src="/icon_darkmode.ico" alt="Jelantik Entertainment" width={40} height={40} className="rounded-xl group-hover:scale-105 transition-transform duration-200" />
+            <span className="font-display font-bold text-xl">
+              Jelantik Entertainment
             </span>
           </Link>
 

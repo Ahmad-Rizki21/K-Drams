@@ -8,8 +8,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Jelantik - Streaming Drama Pendek",
-  description: "Nonton drama pendek gratis dan tanpa iklan di Jelantik.",
+  title: "Jelantik Entertainment - Streaming Drama, Anime & Komik",
+  description: "Nonton drama pendek, anime, dan baca komik gratis di Jelantik Entertainment.",
 };
 
 export default function RootLayout({
