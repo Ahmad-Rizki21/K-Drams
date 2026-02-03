@@ -169,8 +169,7 @@ export default function KomikDetailPage() {
               {komik.chapters && komik.chapters.length > 0 && (
                 <Link
                   href={`/read/komik/${komik.manga_id}?chapter=${komik.chapters[komik.chapters.length - 1].chapter_id}`}
-                  className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-primary-foreground transition-all hover:scale-105 shadow-lg"
-                  className="bg-primary"
+                  className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-primary-foreground bg-primary transition-all hover:scale-105 shadow-lg"
                 >
                   <Book className="w-5 h-5 fill-current" />
                   Mulai Baca
