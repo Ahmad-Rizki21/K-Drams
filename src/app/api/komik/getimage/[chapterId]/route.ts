@@ -12,6 +12,9 @@ export async function GET(
   try {
     const response = await fetch(`${UPSTREAM_API}/getimage?chapter_id=${chapterId}&type=project`, {
       cache: 'no-store',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      },
     });
 
     if (!response.ok) {

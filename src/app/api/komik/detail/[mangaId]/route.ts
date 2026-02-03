@@ -12,6 +12,9 @@ export async function GET(
   try {
     const response = await fetch(`${UPSTREAM_API}/detail?manga_id=${mangaId}&type=project`, {
       cache: 'no-store',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      },
     });
 
     if (!response.ok) {
@@ -35,6 +38,9 @@ export async function GET(
     // Fetch chapter list
     const chapterResponse = await fetch(`${UPSTREAM_API}/chapterlist?manga_id=${mangaId}&type=project`, {
       cache: 'no-store',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      },
     });
 
     let chapters: any[] = [];
