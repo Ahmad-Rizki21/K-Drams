@@ -70,7 +70,18 @@ export async function GET(
     let chapters: any[] = [];
     if (chapterResponse.ok) {
       const chapterJson = await safeJson<any>(chapterResponse);
-      chapters = chapterJson?.data || [];
+      console.log("Komik ChapterList response:", JSON.stringify(chapterJson).substring(0, 200));
+      // Handle different response structures
+      if (Array.isArray(chapterJson?.data)) {
+        chapters = chapterJson.data;
+      } else if (Array.isArray(chapterJson)) {
+        chapters = chapterJson;
+      } else if (chapterJson?.chapterList && Array.isArray(chapterJson.chapterList)) {
+        chapters = chapterJson.chapterList;
+      }
+      console.log("Parsed chapters count:", chapters.length);
+    } else {
+      console.error("ChapterList API error:", chapterResponse.status);
     }
 
     // Add chapters to the data
