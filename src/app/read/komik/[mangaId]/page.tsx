@@ -28,7 +28,12 @@ export default function KomikReadPage() {
   const { data: imagesData, isLoading: imagesLoading } = useKomikImages(currentChapterId || "");
 
   const komik = detailData as KomikDetail | null;
-  const chapters = komik?.chapters || [];
+  // Sort chapters by chapter_number so chapter 1 is at index 0
+  const chapters = [...(komik?.chapters || [])].sort((a, b) => {
+    const numA = parseInt(a.chapter_number) || 0;
+    const numB = parseInt(b.chapter_number) || 0;
+    return numA - numB;
+  });
 
   // Initialize from URL params
   useEffect(() => {
@@ -218,15 +223,14 @@ export default function KomikReadPage() {
               </button>
             </div>
             <div className="p-3 space-y-1">
-              {[...chapters].reverse().map((chapter, reverseIdx) => {
-                const originalIndex = totalChapters - 1 - reverseIdx;
+              {chapters.map((chapter, index) => {
                 return (
                   <button
                     key={chapter.chapter_id}
-                    onClick={() => handleChapterChange(chapter.chapter_id, originalIndex)}
+                    onClick={() => handleChapterChange(chapter.chapter_id, index)}
                     className={`
                       w-full text-left p-3 rounded-lg text-sm transition-all
-                      ${originalIndex === currentChapterIndex
+                      ${index === currentChapterIndex
                         ? "bg-primary text-white shadow-lg shadow-primary/20"
                         : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
                       }

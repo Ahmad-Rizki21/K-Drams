@@ -146,7 +146,11 @@ export default function KomikDetailPage() {
                 <div className="glass rounded-xl p-4">
                   <h3 className="font-semibold text-foreground mb-4">Chapter List</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-h-96 overflow-y-auto">
-                    {[...komik.chapters].reverse().map((chapter) => (
+                    {[...komik.chapters].sort((a, b) => {
+                      const numA = parseInt(a.chapter_number) || 0;
+                      const numB = parseInt(b.chapter_number) || 0;
+                      return numA - numB;
+                    }).map((chapter) => (
                       <Link
                         key={chapter.chapter_id}
                         href={`/read/komik/${komik.manga_id}?chapter=${chapter.chapter_id}`}
