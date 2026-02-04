@@ -109,10 +109,6 @@ export function ReelShortSection({ title, books, isLoading, error }: ReelShortSe
                     color: book.book_mark.color || "#E52E2E",
                     textColor: book.book_mark.text_color
                   } : null}
-                  topRightBadge={book.rank_level ? {
-                    text: book.rank_level,
-                    isTransparent: true
-                  } : null}
                 />
               ))}
           </div>
@@ -152,10 +148,6 @@ export function ReelShortSection({ title, books, isLoading, error }: ReelShortSe
                     text: book.book_mark.text,
                     color: book.book_mark.color || "#E52E2E",
                     textColor: book.book_mark.text_color
-                  } : null}
-                  topRightBadge={book.rank_level ? {
-                    text: book.rank_level,
-                    isTransparent: true
                   } : null}
                 />
               ))}
