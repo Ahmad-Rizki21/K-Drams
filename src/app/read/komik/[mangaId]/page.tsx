@@ -30,8 +30,8 @@ export default function KomikReadPage() {
   const komik = detailData as KomikDetail | null;
   // Sort chapters by chapter_number so chapter 1 is at index 0
   const chapters = [...(komik?.chapters || [])].sort((a, b) => {
-    const numA = parseInt(a.chapter_number) || 0;
-    const numB = parseInt(b.chapter_number) || 0;
+    const numA = parseInt(String(a.chapter_number)) || 0;
+    const numB = parseInt(String(b.chapter_number)) || 0;
     return numA - numB;
   });
 
