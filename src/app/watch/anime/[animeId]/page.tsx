@@ -36,7 +36,8 @@ export default function AnimeWatchPage() {
          anime = detailData.length > 0 ? detailData[0] : null;
      }
   }
-  const chapters = anime?.chapter || [];
+  // Reverse chapters so episode 1 is at index 0 (API returns in descending order)
+  const chapters = [...(anime?.chapter || [])].reverse();
 
   // Initialize from URL params
   useEffect(() => {

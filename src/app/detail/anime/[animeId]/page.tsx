@@ -57,13 +57,13 @@ export default function AnimeDetailPage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 py-8">
-          <button
-            onClick={() => router.back()}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
+          <Link
+            href="/anime"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
           >
             <ChevronLeft className="w-5 h-5" />
             <span>Kembali</span>
-          </button>
+          </Link>
 
           <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
             <div className="relative group">
@@ -75,7 +75,7 @@ export default function AnimeDetailPage() {
               {anime.chapter && anime.chapter.length > 0 && (
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
                   <Link
-                    href={`/watch/anime/${anime.series_id}?episode=${anime.chapter[0].url}`}
+                    href={`/watch/anime/${anime.series_id}?episode=${anime.chapter[anime.chapter.length - 1].url}`}
                     className="px-8 py-3 rounded-full bg-primary text-primary-foreground font-semibold flex items-center gap-2 hover:scale-105 transition-transform shadow-lg"
                   >
                     <Play className="w-5 h-5 fill-current" />
@@ -166,7 +166,7 @@ export default function AnimeDetailPage() {
 
               {anime.chapter && anime.chapter.length > 0 && (
                 <Link
-                  href={`/watch/anime/${anime.series_id}?episode=${anime.chapter[0].url}`}
+                  href={`/watch/anime/${anime.series_id}?episode=${anime.chapter[anime.chapter.length - 1].url}`}
                   className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-primary-foreground bg-primary transition-all hover:scale-105 shadow-lg"
                 >
                   <Play className="w-5 h-5 fill-current" />

@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
+import withPWA from "@ducanh2912/next-pwa";
 
 const nextConfig: NextConfig = {
+  turbopack: {}, // Enable Turbopack with empty config to avoid webpack conflict
   logging: {
     fetches: {
       fullUrl: false,
@@ -40,9 +42,26 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "zshipricf.farsunpteltd.com",
       },
+      {
+        protocol: "https",
+        hostname: "v-mps.crazymaplestudios.com",
+      },
+      {
+        protocol: "https",
+        hostname: "assets.animekita.org",
+      },
+      {
+        protocol: "https",
+        hostname: "otakudesu.best",
+      },
     ],
+    unoptimized: true,
   },
 };
 
-export default nextConfig;
+export default withPWA({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+})(nextConfig);
 

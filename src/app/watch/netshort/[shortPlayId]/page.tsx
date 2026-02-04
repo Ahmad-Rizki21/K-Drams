@@ -341,14 +341,17 @@ export default function NetShortWatchPage() {
               </button>
             </div>
             <div className="p-3 grid grid-cols-5 gap-2">
-              {data?.episodes?.map((episode) => (
+              {data?.episodes
+                ?.slice()
+                .sort((a, b) => a.episodeNo - b.episodeNo)
+                .map((episode) => (
                 <button
                   key={episode.episodeId}
                   onClick={() => goToEpisode(episode.episodeNo)}
                   className={`
                     aspect-square flex items-center justify-center rounded-lg text-sm font-medium transition-all
-                    ${episode.episodeNo === currentEpisode 
-                      ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                    ${episode.episodeNo === currentEpisode
+                      ? "bg-primary text-white shadow-lg shadow-primary/20"
                       : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
                     }
                   `}

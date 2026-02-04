@@ -208,4 +208,43 @@
   .animation-delay-300 {
     animation-delay: 300ms;
   }
+
+  /* Hide scrollbar for mobile */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Safe area inset for notched devices */
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-inset-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-inset-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-area-inset-right {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Prevent bounce scroll on iOS */
+  .no-bounce {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+  }
+
+  /* Smooth snap scroll */
+  .snap-scroll {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+  }
 }

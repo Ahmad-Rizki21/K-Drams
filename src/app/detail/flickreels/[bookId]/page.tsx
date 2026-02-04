@@ -50,13 +50,13 @@ export default function FlickReelsDetailPage() {
 
         <div className="relative max-w-7xl mx-auto px-4 py-8">
           {/* Back Button */}
-          <button
-            onClick={() => router.back()}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
+          <Link
+            href="/flickreels"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
           >
             <ChevronLeft className="w-5 h-5" />
             <span>Kembali</span>
-          </button>
+          </Link>
 
           <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
             {/* Cover */}
