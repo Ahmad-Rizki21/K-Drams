@@ -109,8 +109,7 @@ export default function MeloloDetailPage() {
               {firstEpisodeId && (
                 <Link
                   href={`/watch/melolo/${params.bookId}/${firstEpisodeId}`}
-                  className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-primary-foreground transition-all hover:scale-105 shadow-lg"
-                  className="bg-primary"
+                  className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-primary font-semibold text-primary-foreground transition-all hover:scale-105 shadow-lg"
                 >
                   <Play className="w-5 h-5 fill-current" />
                   Mulai Menonton
