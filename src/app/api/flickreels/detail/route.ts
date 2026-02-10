@@ -1,4 +1,4 @@
-import { encryptedResponse, safeJson } from "@/lib/api-utils";
+import { encryptedResponse, safeJson, getUpstreamHeaders } from "@/lib/api-utils";
 import { NextRequest, NextResponse } from "next/server";
 
 // Force dynamic to prevent static generation caching
@@ -19,10 +19,7 @@ export async function GET(request: NextRequest) {
   try {
     const res = await fetch(`${API_URL}/flickreels/detailAndAllEpisode?id=${id}`, {
       cache: 'no-store', // CRITICAL: Video URLs expire, never cache this response
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Referer": "https://www.flickreels.com/",
-      },
+      headers: getUpstreamHeaders(),
     });
 
     if (!res.ok) {

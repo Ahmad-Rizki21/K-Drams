@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { safeJson, encryptedResponse } from "@/lib/api-utils";
+import { safeJson, encryptedResponse, getUpstreamHeaders } from "@/lib/api-utils";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -12,10 +12,7 @@ export async function GET(request: NextRequest) {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.sansekai.my.id/api"}/freereels/detailAndAllEpisode?id=${id}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      },
+      headers: getUpstreamHeaders(),
       next: { revalidate: 300 } // Cache detail for 5 minutes
     });
 
